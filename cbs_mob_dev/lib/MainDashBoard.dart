@@ -23,7 +23,8 @@ class MainDashBoard extends StatefulWidget {
   MainDashBoardState createState() => MainDashBoardState();
 }
 class MainDashBoardState extends State<MainDashBoard> {
-  late String userName = '';
+  SharedPreferences? prefs;
+  String? userName = '';
   late String userRole = '';
   late String firstName = '';
   late String lastName = '';
@@ -31,22 +32,26 @@ class MainDashBoardState extends State<MainDashBoard> {
   List<MainTask> mainTaskList = [];
   TextEditingController taskListController = TextEditingController();
 
-  void retrieverData() async {
-    final prefs = await SharedPreferences.getInstance();
+  void retrieverData() {
+    // prefs = await SharedPreferences.getInstance();
     setState(() {
-      userName = prefs.getString('user_name') ?? '';  // Initialize with a default value
-      userRole = prefs.getString('user_role') ?? '';
-      firstName = (prefs.getString('first_name') ?? '').toUpperCase();
-      lastName = (prefs.getString('last_name') ?? '').toUpperCase();
+      userName = prefs?.getString('user_name') ?? '';  // Initialize with a default value
+      //userRole = prefs.getString('user_role') ?? '';
+      //firstName = (prefs.getString('first_name') ?? '').toUpperCase();
+      //lastName = (prefs.getString('last_name') ?? '').toUpperCase();
 
-      // Print the values for debugging
-      print("userName: $userName, userRole: $userRole, firstName: $firstName, lastName: $lastName");
+
     });
+
+    // Print the values for debugging
+   // print("userName: $userName, userRole: $userRole, firstName: $firstName, lastName: $lastName");
+    print("userName: $userName");
   }
   @override
   void initState() {
     super.initState();
-    retrieverData(); // Call the function in initState
+    retrieverData();
+     // Call the function in initState
   }
 
   onSearchTextChangedUser(String text) async {

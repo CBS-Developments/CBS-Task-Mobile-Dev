@@ -50,6 +50,7 @@ class CreateMainTaskState extends State<CreateMainTask> {
   TextEditingController documentNumberController = TextEditingController();
   TextEditingController assignToController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -59,7 +60,7 @@ class CreateMainTaskState extends State<CreateMainTask> {
   void retrieverData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      userName = (prefs.getString('user_name') ?? '');
+      userName = prefs.getString('user_name') ?? '';
       firstName = (prefs.getString('first_name') ?? '').toUpperCase();
       lastName = (prefs.getString('last_name') ?? '').toUpperCase();
     });
@@ -279,10 +280,14 @@ class CreateMainTaskState extends State<CreateMainTask> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "$firstName $lastName",
-                style: const TextStyle(color: Colors.white, fontSize: 15.0),
-              ),
+              if (firstName.isNotEmpty)
+                Text(
+                  "$firstName $lastName",
+                  style: const TextStyle(color: Colors.white, fontSize: 15.0),
+                )
+              else
+                CircularProgressIndicator(), // Render a loading state when firstName is not available yet
+
               const Text(
                 "CREATE MAIN TASK",
                 style: TextStyle(color: Colors.white, fontSize: 12.0),
@@ -296,13 +301,14 @@ class CreateMainTaskState extends State<CreateMainTask> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return  MainDashBoard();
+                    return MainDashBoard();
                   },
                 ),
               );
             },
           ),
         ),
+
         body: SingleChildScrollView(
           child: Column(
             children: [
