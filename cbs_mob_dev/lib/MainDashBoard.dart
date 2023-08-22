@@ -23,34 +23,37 @@ class MainDashBoard extends StatefulWidget {
   MainDashBoardState createState() => MainDashBoardState();
 }
 class MainDashBoardState extends State<MainDashBoard> {
-  SharedPreferences? prefs;
+  // SharedPreferences? prefs;
   String? userName = '';
-  late String userRole = '';
-  late String firstName = '';
-  late String lastName = '';
+  String userRole = '';
   List<MainTask> searchResultAsMainTaskList = [];
   List<MainTask> mainTaskList = [];
   TextEditingController taskListController = TextEditingController();
 
-  void retrieverData() {
-    // prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userName = prefs?.getString('user_name') ?? '';  // Initialize with a default value
-      //userRole = prefs.getString('user_role') ?? '';
-      //firstName = (prefs.getString('first_name') ?? '').toUpperCase();
-      //lastName = (prefs.getString('last_name') ?? '').toUpperCase();
-
-
-    });
+  // void retrieverData() {
+  //   // prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //    // userName = prefs?.getString('user_name') ?? '';  // Initialize with a default value
+  //     //userRole = prefs.getString('user_role') ?? '';
+  //     //firstName = (prefs.getString('first_name') ?? '').toUpperCase();
+  //     //lastName = (prefs.getString('last_name') ?? '').toUpperCase();
+  //
+  //
+  //   });
 
     // Print the values for debugging
    // print("userName: $userName, userRole: $userRole, firstName: $firstName, lastName: $lastName");
-    print("userName: $userName");
-  }
+ //   print("userName: $userName");
+  //}
   @override
   void initState() {
+
     super.initState();
-    retrieverData();
+
+    setState(() {
+      getTaskList();
+    });
+   // retrieverData();
      // Call the function in initState
   }
 
@@ -115,11 +118,11 @@ class MainDashBoardState extends State<MainDashBoard> {
 
     if (res.statusCode == 200) {
       final responseJson = json.decode(res.body);
-      setState(() {
-        for (Map details in responseJson) {
-          mainTaskList.add(MainTask.fromJson(details['']));
-        }
-      });
+      // setState(() {
+      //   for (Map details in responseJson) {
+      //     mainTaskList.add(MainTask.fromJson(details));
+      //   }
+      // });
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -191,6 +194,7 @@ class MainDashBoardState extends State<MainDashBoard> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+
         return alert;
       },
     );

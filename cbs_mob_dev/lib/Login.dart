@@ -179,6 +179,13 @@ class _State extends State<LoginPage> {
           prefs.setString('user_role', result['user_role']);
           prefs.setString('activate', result['activate']);
 
+          userName = result['user_name'];
+          firstName = result['first_name'];
+          lastName = result['last_name'];
+          phone = result['phone'];
+          userRole = result['user_role'];
+          activate = result['activate'];
+
           if (!mounted) return true;
           Navigator.push(
             context,

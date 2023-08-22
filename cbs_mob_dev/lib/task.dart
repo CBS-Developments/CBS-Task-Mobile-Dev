@@ -15,6 +15,14 @@ Future<void> saveRefrance(String key, String value) async {
   preferences.setString(key, value);
 }
 
+ var userName;
+ var firstName;
+ var lastName;
+ var phone;
+ var userRole;
+ var activate;
+
+
 class taskLog {
   // int id;
   String logId;

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Login.dart';
 import 'MainDashBoard.dart';
+import 'task.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,9 @@ class LandingPage extends StatelessWidget {
   }
 
   _decideMainPage() {
-    if (prefs.getString('login_state') != null) {
+    if (prefs.getString('login_state') != 'null') {
+       firstName = prefs.getString('first_name');
+       lastName =  prefs.getString('last_name');
       return MainDashBoard();
     } else {
       return const LoginPage();
